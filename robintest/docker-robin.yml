@@ -1,0 +1,12 @@
+version: '2'
+services:
+  vagrant:
+    build: .
+    volumes:
+      - .:/vagrant
+      - ./payload
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_SECURITY_TOKEN
+      - AWS_SESSION_TOKEN

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: py-hw-service
+spec:
+  selector:
+    app: py-hw-app
+  ports:
+  - protocol: "TCP"
+    port: 8080
+    targetPort: 3333
+    nodePort: 32000
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-hw
+  labels:
+    app: py-hw-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: py-hw-app
+  template:
+    metadata:
+      labels:
+        app: py-hw-app
+    spec:
+      containers:
+      - name: py-helloworld
+        image: hello-world-python:latest
+        ports:
+        - containerPort: 3333
+        imagePullPolicy: Never
+        resources: {}
